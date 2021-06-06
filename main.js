@@ -71,6 +71,11 @@ function playerWins(name) {
     return $winTitle;
 }
 
+function addWinner(player) {
+    $arenas.appendChild(playerWins(player.name));
+    $randomButton.disabled = true;
+}
+
 function changeHP(player) {
     $playerLife = document.querySelector(`.player${player.player} .life`);
     player.hp -= randomDamage();
@@ -78,11 +83,9 @@ function changeHP(player) {
     $playerLife.style.width = player.hp >= 0 ? player.hp + '%' : 0;
     
     if (player.hp <= 0 && player.player === 1) {
-        $arenas.appendChild(playerWins(player2.name));
-        $randomButton.disabled = true;
+        addWinner(player2);
     } else if (player.hp <= 0 && player.player === 2) {
-        $arenas.appendChild(playerWins(player1.name));
-        $randomButton.disabled = true;
+        addWinner(player1);
     }
 }
 
