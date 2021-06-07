@@ -2,7 +2,7 @@ const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
 
 const player1 = {
-    player: 1,
+    number: 1,
     name: 'Sonya',
     hp: 100,
     img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
@@ -13,7 +13,7 @@ const player1 = {
 };
 
 const player2 = {
-    player: 2,
+    number: 2,
     name: 'Liu',
     hp: 100,
     img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
@@ -34,7 +34,7 @@ function createElement(tag, className) {
 }
 
 function createPlayer(playerObj) {
-    const $player = createElement('div', `player${playerObj.player}`);
+    const $player = createElement('div', `player${playerObj.number}`);
 
     const $progressBar = createElement('div', 'progressbar');
     
@@ -64,34 +64,47 @@ function randomDamage() {
     return Math.ceil(Math.random() * 20);
 }
 
-function playerWins(name) {
-    $winTitle = createElement('div', 'winTitle');
-    $winTitle.innerText = name + ' wins';
-    
-    return $winTitle;
+function showResult(playerObj) {
+    stopRandom();
+    $resultTitle = createElement('div', 'resultTitle');
+    if (playerObj) {
+        $resultTitle.innerText = playerObj.name + ' wins';
+    } else {
+        $resultTitle.innerText = 'draw';
+    }
+    $arenas.appendChild($resultTitle);
 }
 
-function addWinner(player) {
-    $arenas.appendChild(playerWins(player.name));
+function stopRandom() {
     $randomButton.disabled = true;
 }
 
-function changeHP(player) {
-    $playerLife = document.querySelector(`.player${player.player} .life`);
-    player.hp -= randomDamage();
+function changeHP(playerObj) {
+    $playerLife = document.querySelector(`.player${playerObj.number} .life`);
+    playerObj.hp -= randomDamage();
 
-    $playerLife.style.width = player.hp >= 0 ? player.hp + '%' : 0;
-    
-    if (player.hp <= 0 && player.player === 1) {
-        addWinner(player2);
-    } else if (player.hp <= 0 && player.player === 2) {
-        addWinner(player1);
+    if (playerObj.hp < 0) {
+        playerObj.hp = 0;
+    }
+
+    $playerLife.style.width = playerObj.hp + '%';
+}
+
+function determineResult () {
+    if (player1.hp <= 0 && player2.hp > 0) {
+        showResult(player2);
+    } else if (player2.hp <= 0 && player1.hp > 0) {
+        showResult(player1);
+    } else if (player1.hp <= 0 && player2.hp <= 0) {
+        showResult();
     }
 }
 
 addEventListener('click', function() {
     changeHP(player1);
     changeHP(player2);
+    
+    determineResult();
 });
 
 $arenas.appendChild(createPlayer(player1));
