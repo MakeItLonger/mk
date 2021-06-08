@@ -1,5 +1,5 @@
 const $arenas = document.querySelector('.arenas');
-const $randomButton = document.querySelector('.button');
+const $randomButton = document.querySelector('.control .button');
 
 const player1 = {
     number: 1,
@@ -8,8 +8,11 @@ const player1 = {
     img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
     weapon: ['leg grab'],
     attack: function () {
-        console.log(player1.name + ' ' + 'fight...');
-    }
+        console.log(this.name + ' ' + 'fight...');
+    },
+    changeHP,
+    elHP,
+    renderHP
 };
 
 const player2 = {
@@ -19,8 +22,11 @@ const player2 = {
     img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
     weapon: ['dragon fire'],
     attack: function () {
-        console.log(player2.name + ' ' + 'fight...');
-    }
+        console.log(this.name + ' ' + 'fight...');
+    },
+    changeHP,
+    elHP,
+    renderHP
 };
 
 function createElement(tag, className) {
@@ -60,34 +66,50 @@ function createPlayer(playerObj) {
     return $player;
 }
 
-function randomDamage() {
-    return Math.ceil(Math.random() * 20);
+function getRandomDamage(max) {
+    return Math.ceil(Math.random() * max);
 }
 
 function showResult(playerObj) {
-    stopRandom();
     $resultTitle = createElement('div', 'resultTitle');
+    
     if (playerObj) {
         $resultTitle.innerText = playerObj.name + ' wins';
     } else {
         $resultTitle.innerText = 'draw';
     }
+
     $arenas.appendChild($resultTitle);
+
+    gameIsOver();
 }
 
-function stopRandom() {
+function gameIsOver() {
+    stopRandomButton();
+    createReloadButton();
+}
+
+function stopRandomButton() {
     $randomButton.disabled = true;
 }
 
-function changeHP(playerObj) {
-    $playerLife = document.querySelector(`.player${playerObj.number} .life`);
-    playerObj.hp -= randomDamage();
+function changeHP(damage) {
+    this.hp -= damage;
 
-    if (playerObj.hp < 0) {
-        playerObj.hp = 0;
+    if (this.hp < 0) {
+        this.hp = 0;
     }
+}
 
-    $playerLife.style.width = playerObj.hp + '%';
+function elHP() {
+    const $playerLife = document.querySelector(`.player${this.number} .life`);
+    
+    return $playerLife;
+}
+
+function renderHP() {
+    const lifebar = this.elHP();
+    lifebar.style.width = this.hp + '%';
 }
 
 function determineResult () {
@@ -100,10 +122,25 @@ function determineResult () {
     }
 }
 
-addEventListener('click', function() {
-    changeHP(player1);
-    changeHP(player2);
-    
+function createReloadButton() {
+    const $reloadWrap = createElement('div', 'reloadWrap');
+
+    const $reloadWrapButton = createElement('button', 'button');
+    $reloadWrapButton.innerText = 'Restart';
+
+    $reloadWrap.appendChild($reloadWrapButton);
+    $arenas.appendChild($reloadWrap);
+
+    $reloadWrapButton.addEventListener('click', function() {
+        window.location.reload();
+    });
+}
+
+$randomButton.addEventListener('click', function() {
+    player1.changeHP(getRandomDamage(20));
+    player2.changeHP(getRandomDamage(20));
+    player1.renderHP();
+    player2.renderHP();
     determineResult();
 });
 
