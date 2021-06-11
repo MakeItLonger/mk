@@ -178,11 +178,7 @@ function getDamage() {
     }
 }
 
-$formFight.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const enemy = enemyAttack();
-
+function playerAttack() {
     const attack = {};
 
     for (let item of $formFight) {
@@ -195,11 +191,24 @@ $formFight.addEventListener('submit', function(e) {
         }
         item.checked = false;
     }
-    player1.data = attack;
-    player2.dataEnemy = attack;
-    player2.data = enemy;
-    player1.dataEnemy = enemy;
 
+    return attack;
+}
+
+function moveToObj (obj, attack, attackEnemy) {
+    obj.data = attack;
+    obj.dataEnemy = attackEnemy;
+}
+
+$formFight.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const enemy = enemyAttack();
+    const player = playerAttack();
+
+    moveToObj(player1, player, enemy);
+    moveToObj(player2, enemy, player);
+    
     player1.changeHP(player1.getDamage());
     player2.changeHP(player2.getDamage());
     
@@ -208,6 +217,3 @@ $formFight.addEventListener('submit', function(e) {
     
     determineResult();
 });
-
-// $arenas.appendChild(createPlayer(player1));
-// $arenas.appendChild(createPlayer(player2));
