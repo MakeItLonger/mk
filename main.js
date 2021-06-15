@@ -167,9 +167,7 @@ function changeHP(damage) {
     } else {
         generateLogs('defence', this.enemy, this);
     }
-
 }
-    
 
 function elHP() {
     const $playerLife = document.querySelector(`.player${this.number} .life`);
@@ -273,6 +271,8 @@ function generateLogs(type, player1, player2, time) {
         case 'end':
             text = logs[type][getRandom(logs[type].length)].replace('[playerWins]', player1.name).replace('[playerLose]', player2.name);
             break;
+        default:
+            alert('no argument "type"');
     }
 
     const el = `<p>${text}</p>`;
