@@ -126,7 +126,7 @@ function getRandom(max) {
 }
 
 function showResult(playerObj) {
-    $resultTitle = createElement('div', 'resultTitle');
+    const $resultTitle = createElement('div', 'resultTitle');
     
     if (playerObj) {
         $resultTitle.innerText = playerObj.name + ' wins';
@@ -260,19 +260,20 @@ function generateLogs(type, player1, player2, time) {
             text = logs[type].replace('[player1]', player1.name).replace('[player2]', player2.name).replace('[time]', time);
             break;
         case 'hit':
-            text = `${getCurrentTime()} - ${logs[type][getRandom(logs[type].length)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)} [-${player2.data.value}] ${player2.hp}/100`;
+            text = `${getCurrentTime()} - ${logs[type][getRandom(logs[type].length - 1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)} [-${player2.data.value}] ${player2.hp}/100`;
             break;
         case 'defence':
-            text = `${getCurrentTime()} - ${logs[type][getRandom(logs[type].length)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)}`;
+            text = `${getCurrentTime()} - ${logs[type][getRandom(logs[type].length - 1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)}`;
             break;
         case 'draw':
             text = logs[type].replace('[player1]', player1.name).replace('[player2]', player2.name);
             break;
         case 'end':
-            text = logs[type][getRandom(logs[type].length)].replace('[playerWins]', player1.name).replace('[playerLose]', player2.name);
+            text = logs[type][getRandom(logs[type].length - 1)].replace('[playerWins]', player1.name).replace('[playerLose]', player2.name);
             break;
         default:
-            alert('no argument "type"');
+            console.log('no argument "type"');
+            break;
     }
 
     const el = `<p>${text}</p>`;
