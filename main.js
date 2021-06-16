@@ -14,7 +14,7 @@ const HIT = {
 
 const ATTACK = ['head', 'body', 'foot'];
 
-const logs = {
+const LOGS = {
     start: 'Часы показывали [time], когда [player1] и [player2] бросили вызов друг другу.',
     end: [
         'Результат удара [playerWins]: [playerLose] - труп',
@@ -163,7 +163,7 @@ function changeHP(damage) {
         this.hp = 0;
         }
 
-        generateLogs('hit', this.enemy, this);
+        generateLogs('hit', this.enemy, this, this.data.value);
     } else {
         generateLogs('defence', this.enemy, this);
     }
@@ -189,7 +189,7 @@ function determineResult () {
         generateLogs('end', player1, player2); 
     } else if (player1.hp <= 0 && player2.hp <= 0) {
         showResult();
-        generateLogs('draw', player2, player1);
+        generateLogs('draw');
     }
 }
 
@@ -207,8 +207,7 @@ function createReloadButton() {
     });
 }
 
-$arenas.appendChild(createPlayer(player1));
-$arenas.appendChild(createPlayer(player2));
+
 
 function enemyAttack() {
     const hit = ATTACK[getRandom(3) - 1];
@@ -252,24 +251,50 @@ function moveToObj (obj, enemyObj, attack, attackEnemy) {
     obj.enemy = enemyObj;
 }
 
-function generateLogs(type, player1, player2, time) {
-    let text;
-
+function getTextLog(type, playerName1, playerName2) {
     switch (type) {
         case 'start':
-            text = logs[type].replace('[player1]', player1.name).replace('[player2]', player2.name).replace('[time]', time);
+            return LOGS[type].replace('[player1]', playerName1)
+            .replace('[player2]', playerName2)
+            .replace('[time]', getCurrentTime());
             break;
         case 'hit':
-            text = `${getCurrentTime()} - ${logs[type][getRandom(logs[type].length - 1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)} [-${player2.data.value}] ${player2.hp}/100`;
+            return `${LOGS[type][getRandom(LOGS[type].length - 1) - 1]
+            .replace('[playerKick]', playerName1)
+            .replace('[playerDefence]', playerName2)}`;
             break;
         case 'defence':
-            text = `${getCurrentTime()} - ${logs[type][getRandom(logs[type].length - 1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)}`;
+            return `${LOGS[type][getRandom(LOGS[type].length - 1) - 1]
+            .replace('[playerKick]', playerName1)
+            .replace('[playerDefence]', playerName2)}`;
             break;
         case 'draw':
-            text = logs[type].replace('[player1]', player1.name).replace('[player2]', player2.name);
+            return LOGS[type]
+            .replace('[player1]', playerName1)
+            .replace('[player2]', playerName2);
             break;
         case 'end':
-            text = logs[type][getRandom(logs[type].length - 1)].replace('[playerWins]', player1.name).replace('[playerLose]', player2.name);
+            return LOGS[type][getRandom(LOGS[type].length - 1) - 1]
+            .replace('[playerWins]', playerName1)
+            .replace('[playerLose]', playerName2);
+            break;
+        default:
+            console.log('no argument "type"');
+            break;
+    }
+}
+
+function generateLogs(type, player1 = {}, player2 = {}, valueAttack) {
+    let text = getTextLog(type, player1.name, player2.name);
+    
+    switch (type) {
+        case 'hit':
+            text = `${getCurrentTime()} - ${text} [-${valueAttack}] ${player2.hp}/100`;
+        break;
+        case 'defence':
+        case 'draw':
+        case 'end':
+            text = `${getCurrentTime()} - ${text}`;
             break;
         default:
             console.log('no argument "type"');
@@ -311,4 +336,10 @@ function getCurrentTime() {
     return `${hours}:${minutes}`;
 }
 
-generateLogs('start', player2, player1, getCurrentTime());
+function init() {
+    $arenas.appendChild(createPlayer(player1));
+    $arenas.appendChild(createPlayer(player2));
+    generateLogs('start', player2, player1);
+}
+
+init();
