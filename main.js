@@ -1,4 +1,4 @@
-import { getRandom, createElement } from './utils/index.js';
+import { getRandom, createElement, getCurrentTime } from './utils/index.js';
 import { HIT, ATTACK, LOGS } from './constants/index.js';
 import Player from './player/index.js';
 
@@ -302,17 +302,7 @@ $formFight.addEventListener('submit', function(e) {
     determineResult();
 });
 
-function getCurrentTime() {
-    const date = new Date();
-    const hours = date.getHours();
-    let minutes = date.getMinutes();
 
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-
-    return `${hours}:${minutes}`;
-}
 
 function init() {
     // $arenas.appendChild(createPlayer(player1));

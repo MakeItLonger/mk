@@ -11,3 +11,15 @@ export const createElement = (tag, className) => {
 
     return $element;
 }
+
+export const getCurrentTime = () => {
+    const date = new Date();
+    const hours = date.getHours();
+    let minutes = date.getMinutes();
+
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+
+    return `${hours}:${minutes}`;
+}
