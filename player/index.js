@@ -10,28 +10,6 @@ class Player {
         this.rootSelector = props.rootSelector;
     }
 
-    // getDamage = () => {
-    //     if (this.data.hit !== this.dataEnemy.defence) {
-    //         return this.data.value;
-    //     } else {
-    //         return 0;
-    //     }
-    // }
-
-    // changeHP = (damage) => {
-    //     if (damage) {
-    //         this.hp -= damage;
-            
-    //         if (this.hp < 0) {
-    //         this.hp = 0;
-    //         }
-    
-    //         generateLogs('hit', this.enemy, this, this.data.value);
-    //     } else {
-    //         generateLogs('defence', this.enemy, this);
-    //     }
-    // }
-
     changeHP = (damage) => {
         this.hp -= damage;
         
