@@ -4,214 +4,217 @@ import Player from '../player/index.js';
 
 class Game {
     constructor(props) {
+        this.arenas = document.querySelector('.arenas');
+        this.submitButton = document.querySelector('.buttonWrap .button');
+        this.formFight = document.querySelector('.control');
+        this.chat = document.querySelector('.chat');
 
+        // const $arenas = document.querySelector('.arenas');
+
+        // const $submitButton = document.querySelector('.buttonWrap .button');
+
+        // const $formFight = document.querySelector('.control');
+
+        // const $chat = document.querySelector('.chat');
     }
 
-    start = () => {
-        const $arenas = document.querySelector('.arenas');
+    showResult = (playerObj) => {
+        const $resultTitle = createElement('div', 'resultTitle');
+        
+        if (playerObj) {
+            $resultTitle.innerText = playerObj.name + ' wins';
+        } else {
+            $resultTitle.innerText = 'draw';
+        }
 
-        const $submitButton = document.querySelector('.buttonWrap .button');
+        this.arenas.appendChild($resultTitle);
 
-        const $formFight = document.querySelector('.control');
+        this.gameIsOver();
+    }
 
-        const $chat = document.querySelector('.chat');
+    
+    gameIsOver = () => {
+        this.stopSubmitButton();
+        this.blockInputs();
+        this.createReloadButton();
+    }
 
-        const player1 = new Player({
-            number: 1,
-            name: 'Sonya Blade',
-            hp: 100,
-            img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
-            rootSelector: 'arenas',
+    blockInputs = () => {
+        for(let i = 0; i < this.formFight.length; i++) {
+            this.formFight[i].disabled = true;
+        }
+    }
+
+    stopSubmitButton = () => {
+        this.submitButton.disabled = true;
+    }
+
+    createReloadButton = () => {
+        const $reloadWrap = createElement('div', 'reloadWrap');
+
+        const $reloadWrapButton = createElement('button', 'button');
+        $reloadWrapButton.innerText = 'Restart';
+
+        $reloadWrap.appendChild($reloadWrapButton);
+        this.arenas.appendChild($reloadWrap);
+
+        $reloadWrapButton.addEventListener('click', function() {
+            window.location.reload();
         });
+    }
 
-        const player2 = new Player({
-            number: 2,
-            name: 'Liu Kang',
-            hp: 100,
-            img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
-            rootSelector: 'arenas',
-        });
+    determineResult = (player1, player2) => {
+        if (player1.hp <= 0 && player2.hp > 0) {
+            this.showResult(player2);
+            this.generateLogs('end', player2, player1);
+        } else if (player2.hp <= 0 && player1.hp > 0) {
+            this.showResult(player1);
+            this.generateLogs('end', player1, player2); 
+        } else if (player1.hp <= 0 && player2.hp <= 0) {
+            this.showResult();
+            this.generateLogs('draw');
+        }
+    }
 
-        function showResult(playerObj) {
-            const $resultTitle = createElement('div', 'resultTitle');
-            
-            if (playerObj) {
-                $resultTitle.innerText = playerObj.name + ' wins';
-            } else {
-                $resultTitle.innerText = 'draw';
+    enemyAttack = () => {
+        const hit = ATTACK[getRandom(3) - 1];
+        const defence = ATTACK[getRandom(3) - 1];
+
+        return {
+            value: getRandom(HIT[hit]),
+            hit,
+            defence,
+        }
+    }
+
+
+    playerAttack = () => {
+        const attack = {};
+
+        for (let item of this.formFight) {
+            if (item.checked && item.name === 'hit') {
+                attack.value = getRandom(HIT[item.value]);
+                attack.hit = item.value;
             }
-
-            $arenas.appendChild($resultTitle);
-
-            gameIsOver();
-        }
-
-        function gameIsOver() {
-            stopSubmitButton();
-            blockInputs();
-            createReloadButton();
-        }
-
-        function blockInputs() {
-            for(let i = 0; i < $formFight.length; i++) {
-                $formFight[i].disabled = true;
+            if (item.checked && item.name === 'defence') {
+                attack.defence = item.value;
             }
+            item.checked = false;
         }
 
-        function stopSubmitButton() {
-            $submitButton.disabled = true;
-        }
+        return attack;
+    }
 
-
-        function determineResult () {
-            if (player1.hp <= 0 && player2.hp > 0) {
-                showResult(player2);
-                generateLogs('end', player2, player1);
-            } else if (player2.hp <= 0 && player1.hp > 0) {
-                showResult(player1);
-                generateLogs('end', player1, player2); 
-            } else if (player1.hp <= 0 && player2.hp <= 0) {
-                showResult();
-                generateLogs('draw');
-            }
-        }
-
-        function createReloadButton() {
-            const $reloadWrap = createElement('div', 'reloadWrap');
-
-            const $reloadWrapButton = createElement('button', 'button');
-            $reloadWrapButton.innerText = 'Restart';
-
-            $reloadWrap.appendChild($reloadWrapButton);
-            $arenas.appendChild($reloadWrap);
-
-            $reloadWrapButton.addEventListener('click', function() {
-                window.location.reload();
-            });
-        }
-
-
-
-        function enemyAttack() {
-            const hit = ATTACK[getRandom(3) - 1];
-            const defence = ATTACK[getRandom(3) - 1];
-
-            return {
-                value: getRandom(HIT[hit]),
-                hit,
-                defence,
-            }
-        }
-
-
-        function playerAttack() {
-            const attack = {};
-
-            for (let item of $formFight) {
-                if (item.checked && item.name === 'hit') {
-                    attack.value = getRandom(HIT[item.value]);
-                    attack.hit = item.value;
-                }
-                if (item.checked && item.name === 'defence') {
-                    attack.defence = item.value;
-                }
-                item.checked = false;
-            }
-
-            return attack;
-        }
-
-        function getTextLog(type, playerName1, playerName2) {
-            switch (type) {
-                case 'start':
-                    return LOGS[type].replace('[player1]', playerName1)
-                    .replace('[player2]', playerName2)
-                    .replace('[time]', getCurrentTime());
-                    break;
-                case 'hit':
-                    return `${LOGS[type][getRandom(LOGS[type].length - 1) - 1]
-                    .replace('[playerKick]', playerName1)
-                    .replace('[playerDefence]', playerName2)}`;
-                    break;
-                case 'defence':
-                    return `${LOGS[type][getRandom(LOGS[type].length - 1) - 1]
-                    .replace('[playerKick]', playerName1)
-                    .replace('[playerDefence]', playerName2)}`;
-                    break;
-                case 'draw':
-                    return LOGS[type]
-                    .replace('[player1]', playerName1)
-                    .replace('[player2]', playerName2);
-                    break;
-                case 'end':
-                    return LOGS[type][getRandom(LOGS[type].length - 1) - 1]
-                    .replace('[playerWins]', playerName1)
-                    .replace('[playerLose]', playerName2);
-                    break;
-                default:
-                    console.log('no argument "type"');
-                    break;
-            }
-        }
-
-        function generateLogs(type, { name } = {}, { name: playerName2, hp } = {}, valueAttack) {
-            let text = getTextLog(type, name, playerName2);
-            
-            switch (type) {
-                case 'hit':
-                    text = `${getCurrentTime()} - ${text} [-${valueAttack}] ${hp}/100`;
+    getTextLog = (type, playerName1, playerName2) => {
+        switch (type) {
+            case 'start':
+                return LOGS[type].replace('[player1]', playerName1)
+                .replace('[player2]', playerName2)
+                .replace('[time]', getCurrentTime());
                 break;
-                case 'defence':
-                case 'draw':
-                case 'end':
-                    text = `${getCurrentTime()} - ${text}`;
-                    break;
-                case 'start':
-                    console.log('START!');
-                    break;
-                default:
-                    console.log('no argument "type"');
-                    break;
-            }
+            case 'hit':
+                return `${LOGS[type][getRandom(LOGS[type].length - 1) - 1]
+                .replace('[playerKick]', playerName1)
+                .replace('[playerDefence]', playerName2)}`;
+                break;
+            case 'defence':
+                return `${LOGS[type][getRandom(LOGS[type].length - 1) - 1]
+                .replace('[playerKick]', playerName1)
+                .replace('[playerDefence]', playerName2)}`;
+                break;
+            case 'draw':
+                return LOGS[type]
+                .replace('[player1]', playerName1)
+                .replace('[player2]', playerName2);
+                break;
+            case 'end':
+                return LOGS[type][getRandom(LOGS[type].length - 1) - 1]
+                .replace('[playerWins]', playerName1)
+                .replace('[playerLose]', playerName2);
+                break;
+            default:
+                console.log('no argument "type"');
+                break;
+        }
+    }
 
-            const el = `<p>${text}</p>`;
-            
-            $chat.insertAdjacentHTML('afterbegin', el);
+    generateLogs = (type, { name } = {}, { name: playerName2, hp } = {}, valueAttack) => {
+        let text = this.getTextLog(type, name, playerName2);
+        
+        switch (type) {
+            case 'hit':
+                text = `${getCurrentTime()} - ${text} [-${valueAttack}] ${hp}/100`;
+            break;
+            case 'defence':
+            case 'draw':
+            case 'end':
+                text = `${getCurrentTime()} - ${text}`;
+                break;
+            case 'start':
+                console.log('START!');
+                break;
+            default:
+                console.log('no argument "type"');
+                break;
         }
 
-        $formFight.addEventListener('submit', function(e) {
+        const el = `<p>${text}</p>`;
+        
+        this.chat.insertAdjacentHTML('afterbegin', el);
+    }
+
+    getPlayers = async () => {
+        const body = fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then(res => res.json());
+        return body;    
+    }
+
+    start = async () => {
+        let player1;
+        let player2;
+        const players = await this.getPlayers();
+        const p1 = players[getRandom(players.length) - 1];
+        const p2 = players[getRandom(players.length) - 1];
+        player1 = new Player({
+            ...p1,
+            number: 1,
+            rootSelector: 'arenas',
+        });
+
+        player2 = new Player({
+            ...p2,
+            number: 2,
+            rootSelector: 'arenas',
+        });
+
+        player1.createPlayer();
+        player2.createPlayer();
+
+        this.formFight.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const enemy = enemyAttack();
-            const player = playerAttack();
+            const enemy = this.enemyAttack();
+            const player = this.playerAttack();
 
             if (player.defence !== enemy.hit) {
                 player1.changeHP(enemy.value);
                 player1.renderHP();
-                generateLogs('hit', player2, player1, enemy.value);
-                console.log('hit', player2, player1, enemy.value);
+                this.generateLogs('hit', player2, player1, enemy.value);
             } else {
-                generateLogs('defence', player2, player1);
+                this.generateLogs('defence', player2, player1);
             }
 
             if (enemy.defence !== player.hit) {
                 player2.changeHP(player.value);
                 player2.renderHP();
-                generateLogs('hit', player1, player2, player.value);
+                this.generateLogs('hit', player1, player2, player.value);
             } else {
-                generateLogs('defence', player1, player2);
+                this.generateLogs('defence', player1, player2);
             }
 
-            determineResult();
+            this.determineResult(player1, player2);
         });
 
-        function init() {
-            player1.createPlayer();
-            player2.createPlayer();
-            generateLogs('start', player2, player1);
-        }
-        
-        init();
+        this.generateLogs('start', player2, player1);
     }
 }
 
