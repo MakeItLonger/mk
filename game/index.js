@@ -172,7 +172,7 @@ class Game {
         let player1;
         let player2;
         const players = await this.getPlayers();
-        const p1 = players[getRandom(players.length) - 1];
+        const p1 = JSON.parse(localStorage.getItem('player1'));
         const p2 = players[getRandom(players.length) - 1];
         player1 = new Player({
             ...p1,
