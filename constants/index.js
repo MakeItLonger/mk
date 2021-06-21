@@ -45,3 +45,12 @@ export const LOGS = {
     ],
     draw: 'Ничья - это тоже победа!'
 };
+
+export const ARENAS = [
+    './arenas/1.png',
+    './arenas/2.gif',
+    './arenas/3.gif',
+    './arenas/4.gif',
+    './arenas/5.gif',
+    './arenas/6.gif',
+]

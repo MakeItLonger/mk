@@ -1,5 +1,5 @@
 import { getRandom, createElement, getCurrentTime } from '../utils/index.js';
-import { LOGS } from '../constants/index.js';
+import { ARENAS, LOGS } from '../constants/index.js';
 import Player from '../player/index.js';
 
 class Game {
@@ -194,6 +194,8 @@ class Game {
     }
 
     start = async () => {
+        this.arenas.style.cssText = `background-image: url(${ARENAS[getRandom(ARENAS.length) - 1]})`;
+
         let player1;
         let player2;
 
