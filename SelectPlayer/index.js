@@ -65,7 +65,7 @@ async function init() {
 
             setTimeout(() => {
                 window.location.pathname = './game.html';
-            }, 1000);
+            }, 500);
         });
 
         img.src = item.avatar;

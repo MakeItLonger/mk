@@ -1,5 +1,5 @@
 import { getRandom, createElement, getCurrentTime } from '../utils/index.js';
-import { HIT, ATTACK, LOGS } from '../constants/index.js';
+import { LOGS } from '../constants/index.js';
 import Player from '../player/index.js';
 
 class Game {
@@ -51,7 +51,8 @@ class Game {
         this.arenas.appendChild($reloadWrap);
 
         $reloadWrapButton.addEventListener('click', function() {
-            window.location.reload();
+            // window.location.reload();
+            window.location.pathname = './index.html';
         });
     }
 
