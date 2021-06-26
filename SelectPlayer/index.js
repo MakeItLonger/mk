@@ -83,7 +83,7 @@ async function init() {
             musicFinish.play();
 
             setTimeout(() => {
-                window.location.pathname = 'mortal_kombat/game.html';
+                window.location.pathname = 'https://makeitlonger.github.io/mortal_kombat/game.html';
             }, 1000);
         });
 
