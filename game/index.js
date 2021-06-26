@@ -1,5 +1,5 @@
 import { getRandom, createElement, getCurrentTime } from '../utils/index.js';
-import { ARENAS, LOGS } from '../constants/index.js';
+import { ARENAS, LOGS, POSES } from '../constants/index.js';
 import Player from '../player/index.js';
 
 class Game {
@@ -8,6 +8,9 @@ class Game {
         this.submitButton = document.querySelector('.buttonWrap .button');
         this.formFight = document.querySelector('.control');
         this.chat = document.querySelector('.chat');
+        this.audioStart = document.querySelector('.audio1');
+        this.audioEnd = document.querySelector('.audio5');
+        this.vs = document.querySelector('.vs_gif');
     }
 
     showResult = (playerObj) => {
@@ -58,12 +61,79 @@ class Game {
 
     determineResult = (player1, player2) => {
         if (player1.hp <= 0 && player2.hp > 0) {
+            const $img1 = document.querySelector('.player1 img');
+
+            $img1.src = player1.finishIMG.defeatPose;
+
+            $img1.style.height = player1.finishIMG.scaleDefeatHeight;
+
+            const $img2 = document.querySelector('.player2 img');
+
+            $img2.src = player2.finishIMG.victoryPose;
+
+            $img2.style.height = player2.finishIMG.scaleVictoryHeight;
+
+            if (player2.finishIMG.scaleVictoryWidth) {
+                $img2.style.width = player2.finishIMG.scaleVictoryWidth;
+            }
+
+            if (player2.id == '17') {
+                $img2.style.transform = 'scaleX(-1) translateX(90%)';
+            }
+
+            if (player1.id == '24') {
+                $img2.style.transform = 'scaleX(-1) translateX(60%)';
+            }
+
+            this.audioStart.pause();
+            const audioLose = document.querySelector('.audio3');
+            audioLose.play();
+            setTimeout(() => {
+                this.audioEnd.play();
+            }, 2000);
+
             this.showResult(player2);
             this.generateLogs('end', player2, player1);
         } else if (player2.hp <= 0 && player1.hp > 0) {
+            const $img1 = document.querySelector('.player1 img');
+            $img1.src = player1.finishIMG.victoryPose;
+
+            $img1.style.height = player1.finishIMG.scaleVictoryHeight;
+            $img1.style.width = player1.finishIMG.scaleVictoryWidth;
+
+            if (player1.finishIMG.scaleVictoryWidth) {
+                $img1.style.width = player2.finishIMG.scaleVictoryWidth;
+            }
+
+            if (player1.id == '17') {
+                $img1.style.transform = 'translateX(-14%)';
+            }
+
+            if (player1.id == '24') {
+                $img1.style.transform = 'translateX(-37%)';
+            }
+            const $img2 = document.querySelector('.player2 img');
+
+            $img2.src = player2.finishIMG.defeatPose;
+
+            $img2.style.height = player2.finishIMG.scaleDefeatHeight;
+
+            this.audioStart.pause();
+            const audioLose = document.querySelector('.audio2');
+            audioLose.play();
+            setTimeout(() => {
+                this.audioEnd.play();
+            }, 2000);
+
             this.showResult(player1);
             this.generateLogs('end', player1, player2); 
         } else if (player1.hp <= 0 && player2.hp <= 0) {
+            this.audioStart.pause();
+            const audioLose = document.querySelector('.audio4');
+            audioLose.play();
+            setTimeout(() => {
+                this.audioEnd.play();
+            }, 2000);
             this.showResult();
             this.generateLogs('draw');
         }
@@ -195,21 +265,32 @@ class Game {
 
     start = async () => {
         this.arenas.style.cssText = `background-image: url(${ARENAS[getRandom(ARENAS.length) - 1]})`;
+        
+        setTimeout(() => {
+            this.vs.style.display = 'none';
+        }, 1700);
 
         let player1;
         let player2;
 
+        this.audioStart.play();
+
         const p1 = JSON.parse(localStorage.getItem('player1'));
+
         const p2 = await this.getPlayer();
 
         player1 = new Player({
             ...p1,
+            finishIMG: POSES[p1.id],
             number: 1,
             rootSelector: 'arenas',
         });
 
+        console.log(player1);
+
         player2 = new Player({
             ...p2,
+            finishIMG: POSES[p2.id],
             number: 2,
             rootSelector: 'arenas',
         });

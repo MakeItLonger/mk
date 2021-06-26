@@ -5,11 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="assets/favicon/favicon-32x32.png">
     <title>MK - JSMarathon - Arenas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="root">
+        <img src="assets/vs.gif" alt="fight" class="vs_gif">
+        <img src="assets/fight.gif" alt="fight" class="fight_gif">
         <div class="arenas arena1">
             <form class="control">
                 <div class="inputWrap">
@@ -57,9 +60,21 @@
         <div class="wall-left"></div>
         <div class="wall-right"></div>
     </div>
-    <audio autoplay loop>
-        <source src="audio/TimeToFight.mp3" type="audio/mpeg">
+    <audio loop preload class='audio1'>
+        <source src="assets/audio/TimeToFight.mp3" type="audio/mpeg">
        </audio>
+    <audio preload class='audio2'>
+        <source src="assets/audio/fatality.mp3" type="audio/mpeg">
+    </audio>
+    <audio preload class='audio3'>
+        <source src="assets/audio/haha.mp3" type="audio/mpeg">
+    </audio>
+    <audio preload class='audio4'>
+        <source src="assets/audio/well_done.mp3" type="audio/mpeg">
+    </audio>
+    <audio loop preload class='audio5'>
+        <source src="assets/audio/end.mp3" type="audio/mpeg">
+    </audio>
     <script src="main.js" type="module"></script>
 </body>
 </html>

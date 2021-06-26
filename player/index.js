@@ -8,6 +8,8 @@ class Player {
         this.number = props.number;
         this.selector = `player${this.number}`;
         this.rootSelector = props.rootSelector;
+        this.id = props.id;
+        this.finishIMG = props.finishIMG;
     }
 
     changeHP = (damage) => {
@@ -18,7 +20,6 @@ class Player {
         }
     }
 
-    
     elHP = () => {
         const $playerLife = document.querySelector(`.${this.selector} .life`);
         

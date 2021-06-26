@@ -38,6 +38,20 @@ body {
     background: #424466;
 }
 
+.vs_gif {
+    display: block;
+    position: absolute;
+    z-index: 1000000000;
+    top: 22px;
+}
+
+.fight_gif {
+    display: block;
+    position: absolute;
+    z-index: 1000000000;
+    top: 90px;
+}
+
 .wall-left {
     position: absolute;
     width: 87px;
@@ -176,6 +190,7 @@ body {
     background-size: cover;
     background-position: center;
     border-top: 4px solid #f5d100;
+    border-bottom: 4px solid #f5d100;
     padding: 6px 40px;
     overflow: scroll;
     color: white;
@@ -241,7 +256,7 @@ body {
     margin-right: auto;
     border-radius: 4px;
     box-sizing: border-box;
-    cursor: url('cursors/mortal.cur'), pointer;
+    cursor: url('assets/cursors/mortal.cur'), pointer;
     font-family: "Mortal Kombat 3";
     outline: none;
 }
@@ -345,11 +360,11 @@ form:invalid button[class=button]:active::after {
 }
 
 .inputWrap:nth-child(1) {
-    cursor: url('cursors/sword.cur'), pointer;
+    cursor: url('assets/cursors/sword.cur'), pointer;
 }
 
 .inputWrap:nth-child(2) {
-    cursor: url('cursors/shield.cur'), pointer;
+    cursor: url('assets/cursors/shield.cur'), pointer;
 }
 
 .buttonWrap {
@@ -368,7 +383,8 @@ form:invalid button[class=button]:active::after {
 .ul {
     border: solid 3px #cd0e03;
     height: 50px;
-    padding: 0 12px;
+    /* padding: 0 12px; */
+    padding: 0;
     font-family: 'Mortal Kombat 3';
     display: flex;
     justify-content: space-between;
@@ -395,9 +411,10 @@ form:invalid button[class=button]:active::after {
     position: relative;
     display: block;
     width: 80px;
-    height: 50px;
+    /* height: 50px; */
+    height: 100%;
     content: "";
-    transform: scaleY(1.2);
+    transform: scaleY(1);
     z-index: -1;
     margin-bottom: -50px;
     transition: 0.3s;

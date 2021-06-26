@@ -47,10 +47,39 @@ export const LOGS = {
 };
 
 export const ARENAS = [
-    './arenas/1.png',
-    './arenas/2.gif',
-    './arenas/3.gif',
-    './arenas/4.gif',
-    './arenas/5.gif',
-    './arenas/6.gif',
-]
+    'assets/arenas/1.png',
+    'assets/arenas/2.gif',
+    'assets/arenas/3.gif',
+    'assets/arenas/4.gif',
+    'assets/arenas/5.gif',
+    'assets/arenas/6.gif',
+];
+
+export const POSES = [
+    'patient number 0',
+    /* 1 */{victoryPose: 'assets/victory_poses/rain.gif', defeatPose: 'assets/victory_poses/rain_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '110%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 2 */{victoryPose: 'assets/victory_poses/reptile.gif', defeatPose: 'assets/victory_poses/reptile_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '110%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 3 */{victoryPose: 'assets/victory_poses/stryker.gif', defeatPose: 'assets/victory_poses/stryker_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '100%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 4 */{victoryPose: 'assets/victory_poses/jax.gif', defeatPose: 'assets/victory_poses/jax_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '110%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 5 */{victoryPose: 'assets/victory_poses/nightwolf.gif', defeatPose: 'assets/victory_poses/nightwolf_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '140%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /*  */{victoryPose: 'assets/victory_poses/jade.gif', defeatPose: 'assets/victory_poses/jade_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '125%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 7 */{victoryPose: 'assets/victory_poses/noobsaibot.gif', defeatPose: 'assets/victory_poses/noobsaibot_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '118%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 8 */{victoryPose: 'assets/victory_poses/sonya.gif', defeatPose: 'assets/victory_poses/sonya_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '100%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 9 */{victoryPose: 'assets/victory_poses/kano.gif', defeatPose: 'assets/victory_poses/kano_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '105%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 10 */{victoryPose: 'assets/victory_poses/milena.gif', defeatPose: 'assets/victory_poses/milena_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '140%', scaleDefeatWidth: '100%', scaleDefeatHeight: '118%'},
+    'skip',
+    /* 12 */{victoryPose: 'assets/victory_poses/subzero2.gif', defeatPose: 'assets/victory_poses/subzero2_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '130%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 13 */{victoryPose: 'assets/victory_poses/subzero.gif', defeatPose: 'assets/victory_poses/subzero_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '100%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 14 */{victoryPose: 'assets/victory_poses/kunglao.gif', defeatPose: 'assets/victory_poses/kunglao_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '107%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 15 */{victoryPose: 'assets/victory_poses/sector.gif', defeatPose: 'assets/victory_poses/sector_d.gif', scaleVictoryWidth: '80%', scaleVictoryHeight: '90%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 16 */{victoryPose: 'assets/victory_poses/kitana.gif', defeatPose: 'assets/victory_poses/kitana_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '130%', scaleDefeatWidth: '100%', scaleDefeatHeight: '118%'},
+    /* 17 */{victoryPose: 'assets/victory_poses/ermac.gif', defeatPose: 'assets/victory_poses/ermac_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '100%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 18 */{victoryPose: 'assets/victory_poses/scorpion.gif', defeatPose: 'assets/victory_poses/scorpion_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '130%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 19 */{victoryPose: 'assets/victory_poses/cyrax.gif', defeatPose: 'assets/victory_poses/cyrax_d.gif', scaleVictoryWidth: '80%', scaleVictoryHeight: '90%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 20 */{victoryPose: 'assets/victory_poses/kabal.gif', defeatPose: 'assets/victory_poses/kabal_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '110%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 21 */{victoryPose: 'assets/victory_poses/sindel.gif', defeatPose: 'assets/victory_poses/sindel_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '100%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 22 */{victoryPose: 'assets/victory_poses/smoke.gif', defeatPose: 'assets/victory_poses/smoke_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '100%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 23 */{victoryPose: 'assets/victory_poses/kang.gif', defeatPose: 'assets/victory_poses/kang_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '100%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+    /* 24 */{victoryPose: 'assets/victory_poses/shang3.gif', defeatPose: 'assets/victory_poses/shang_d.gif', scaleVictoryWidth: '', scaleVictoryHeight: '100%', scaleDefeatWidth: '100%', scaleDefeatHeight: '100%'},
+];
+

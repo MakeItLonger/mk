@@ -1,5 +1,20 @@
 const $parent = document.querySelector('.parent');
 const $player = document.querySelector('.player');
+const $play = document.querySelector('.play');
+const $musicStart = document.querySelector('.audio1');
+const $root = document.querySelector('.root');
+const $logo = document.querySelector('.img_logo');
+
+$parent.style.cssText = 'pointer-events: none;';
+
+$play.addEventListener('click', () => {
+    $play.classList.add('play1');
+    $musicStart.play();
+    $root.classList.remove('bw');
+    $logo.style.display = 'none';
+    $parent.style.cssText = 'pointer-events: auto;';
+});
+
 
 const createElement = (tag, className) => {
     const $tag = document.createElement(tag);
@@ -63,9 +78,13 @@ async function init() {
 
             el.classList.add('active');
 
+            $musicStart.pause();
+            const musicFinish = document.querySelector('.audio2');
+            musicFinish.play();
+
             setTimeout(() => {
                 window.location.pathname = './game.html';
-            }, 500);
+            }, 1000);
         });
 
         img.src = item.avatar;

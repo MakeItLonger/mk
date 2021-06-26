@@ -2,19 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="shortcut icon" href="assets/favicon/favicon-32x32.png">
     <title>Mortal Kombat</title>
     <link rel="stylesheet" href="SelectPlayer/index.css">
 </head>
 <body>
-<div class="root">
+<img src="assets/logo_mk3.png" alt="logo" class="img_logo">
+<div class="play">START GAME</div>
+<div class="root bw">
     <div class="title">
         SELECT YOUR FIGHTERS
     </div>
     <div class="player"></div>
     <div class="parent"></div>
+
+    <audio loop preload class='audio1'>
+        <source src="assets/audio/vybor-bojca-v-mortal-kombat.mp3" type="audio/mpeg">
+    </audio>
+    <audio preload class='audio2'>
+        <source src="assets/audio/fight.mp3" type="audio/mpeg">
+    </audio>
 
     <script src="SelectPlayer/index.js"></script>
 </div>
