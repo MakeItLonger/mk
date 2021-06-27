@@ -55,8 +55,8 @@ class Game {
 
         $reloadWrapButton.addEventListener('click', function() {
             // window.location.reload();
-            // window.location.pathname = '/mortal_kombat/index.html';
-            window.location.pathname = './index.html';
+            window.location.pathname = '/mortal_kombat/index.html';
+            // window.location.pathname = './index.html';
         });
     }
 
