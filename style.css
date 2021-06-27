@@ -90,7 +90,7 @@ body {
     display: flex;
 }
 
-.arenas.arena1 {
+/* .arenas.arena1 {
     background-image: url(./assets/scorpions-lair-arenas.png);
 }
 
@@ -108,7 +108,7 @@ body {
 
 .arenas.arena5 {
     background-image: url(./assets/waterfront.png);
-}
+} */
 
 .player1,
 .player2 {
