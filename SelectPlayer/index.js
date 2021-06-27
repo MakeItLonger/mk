@@ -35,7 +35,7 @@ const createElement = (tag, className) => {
 function createEmptyPlayerBlock() {
     const el = createElement('div', ['character', 'div11', 'disabled']);
     const img = createElement('img');
-    img.src = 'http://reactmarathon-api.herokuapp.com/assets/mk/avatar/11.png';
+    img.src = 'https://reactmarathon-api.herokuapp.com/assets/mk/avatar/11.png';
     el.appendChild(img);
     $parent.appendChild(el);
 }
@@ -84,6 +84,7 @@ async function init() {
 
             setTimeout(() => {
                 window.location.pathname = '/mortal_kombat/game.html';
+                // window.location.pathname = './game.html';
             }, 1000);
         });
 

@@ -232,7 +232,7 @@ class Game {
     }
 
     getValue = async (obj) => {
-        const body = fetch('http://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
+        const body = fetch('https://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
             method: 'POST',
             body: JSON.stringify(obj),
         }).then(res => res.json());
