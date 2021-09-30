@@ -1,1 +1,1 @@
-# [Mortal Kombat](https://makeitlonger.github.io/mk"Go to the project")
+# [Mortal Kombat](https://makeitlonger.github.io/mk) - Single Player Game
